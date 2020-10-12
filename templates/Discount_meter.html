@@ -2,11 +2,71 @@
 
 
 {% block head %}
-<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
 
 <style>
+
+.dropbtn {
+  background-color: #f1f1f1;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.iconset{
+	padding: 20px;
+
+}
+.subitems{
+	display: none;
+    width:100%;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	cursor: pointer;
+
+}
+.subitemsremove{
+	float:right;
+}
+.subitems:hover {
+  background-color: #f1f1f1;
+  color:black;
+}
+.dropdown {
+  position: relative;
+
+  display: inline-block;
+
+}
+
+.dropdown-content {
+  width:100%;
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  height: 200px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #f1f1f1;
+  color:black;
+}
+
 
 		.row {
 		  display: -ms-flexbox; /* IE10 */
@@ -37,17 +97,6 @@
 		  padding: 0 16px;
 		}
 
-
-
-		input {
-
-		  width: 20%;
-		  margin-bottom: 20px;
-		  padding: 4px;
-		  border: 1px solid #ccc;
-		  border-radius: 3px;
-
-		}
 
 		label {
 		  margin-bottom: 10px;
@@ -90,7 +139,7 @@
 
 		  <div style="background-color:#2C3E50;color:white;padding:2px;">
 
-				<h4>Estimated Financial Summary After Discount</h4>
+				<h4 style="text-align:center;">Estimated Financial Summary After Discount</h4>
 
 		  </div>
 		  <br>
@@ -107,77 +156,57 @@
 			  </thead>
 
 			  <tbody>
+			  {% if (fl!=False) %}
+			  {% for i in out['segment_discount_percentage'].keys() %}
 				<tr>
-				  <th scope="row">3</th>
-				  <td>7</td>
-				  <td>1359</td>
-				  <td>1513549.5</td>
-				  <td>208 </td>
+				  <th scope="row">{{i}}</th>
+				  <td>{{out['segment_discount_percentage'][i]}}</td>
+				  <td>{{out['mean_guest_count'][i]}}</td>
+				  <td>{{out['segment_loss_from_discount'][i]}}</td>
+				  <td>{{out['recover_amount_per_guest'][i]}} </td>
 				</tr>
-				<tr>
-				  <th scope="row">1</th>
-				  <td>32</td>
-				  <td>5901</td>
-				  <td>129746974.5</td>
-				  <td>17871 </td>
-				</tr>
-				<tr>
-				  <th scope="row">0</th>
-				  <td>-</td>
-				  <td>-</td>
-				  <td>-</td>
-				  <td>-</td>
-				</tr>
-				<tr>
-				  <th scope="row">2</th>
-				  <td>-</td>
-				  <td>-</td>
-				  <td>-</td>
-				  <td>-</td>
-				</tr>
+			  {% endfor %}
+
 
 			  </tbody>
 			</table>
-		<p>Estimated Total Guest Count : <span class="price" style="color:black"><b>7260</b></span></p>
-		<p>Estimated Total Loss : <span class="price" style="color:black"><b>$ 131260523</b></span></p>
+		<p>Estimated Total Guest Count : <span class="price" style="color:black"><b>{{out['sum_of_guest']}}</b></span></p>
+		<p>Estimated Total Loss : <span class="price" style="color:black"><b>${{sum}}
 
+		</b></span></p>
+		{%endif%}
+			{% if (fl==False) %}
+				<tr>
+				  <th scope="row">1</th>
+				  <td>34</td>
+				  <td>4000</td>
+				  <td>15000</td>
+				  <td>13000</td>
+				</tr>
+		       <tr>
+				  <th scope="row">3</th>
+				  <td>8</td>
+				  <td>40000</td>
+				  <td>10000</td>
+				  <td>12000</td>
+				</tr>
+
+
+
+
+			  </tbody>
+			</table>
+		<p>Estimated Total Guest Count : <span class="price" style="color:black"><b>17000</b></span></p>
+		<p>Estimated Total Loss : <span class="price" style="color:black"><b>$300000
+
+		</b></span></p>
+
+			{%endif%}
 		<!--Inserting package details---->
         </div>
-		<div style="background-color:#2C3E50;color:white;padding:2px;">
-
-				<h4>Inserting Package Details </h4>
-
-		</div>
 		 <br>
 		 <!--Insert segment  offers-->
-        <div style="padding-left:5px;padding-right:5px;">
-		<label><b>SEG:&nbsp; 0&nbsp;</b></label>
-		Dis % :&nbsp;<input type="text" id = "discount0" style = "width:9%">
-		&nbsp;RCPP: <input type="text" id = "rcpp0" style = "width:16%"><BR>
-		PACKAGE: <input type="text" id = "package0" style = "width:80%" placeholder="ENter The Package Details to cover up RCPP..">
 
-		<br>
-		<label><b>SEG:&nbsp; 1&nbsp;</b></label>
-		Dis % :&nbsp;<input type="text" id = "discount1" style = "width:9%">
-		&nbsp;RCPP: <input type="text" id = "rcpp1" style = "width:16%"><BR>
-		PACKAGE: <input type="text" id = "package1" style = "width:80%" placeholder="ENter The Package Details to cover up RCPP..">
-
-
-		<br>
-		<label><b>SEG:&nbsp; 2&nbsp;</b></label>
-		Dis % :&nbsp;<input type="text" id = "discount2" style = "width:9%">
-		&nbsp;RCPP: <input type="text" id = "rcpp2" style = "width:16%"><BR>
-		PACKAGE: <input type="text" id = "package3" style = "width:80%" placeholder="ENter The Package Details to cover up RCPP..">
-
-
-		<br>
-		<label><b>SEG:&nbsp; 3&nbsp;</b></label>
-		Dis % :&nbsp;<input type="text" id = "discount3" style = "width:9%">
-		&nbsp;RCPP: <input type="text" id = "rcpp3" style = "width:16%"><BR>
-		PACKAGE: <input type="text" id = "package3" style = "width:80%" placeholder="ENter The Package Details to cover up RCPP..">
-
-
-		</div>
             </div>
 	</div>
 
@@ -187,51 +216,110 @@
 
 	<div class="col-50 order-0" >
 		<div class="container" style="background: #f2f2f2; padding:0px; ">
-        <div class="row" s>
-          <div class="col-50">
-			<form action="">
-				<div style="background-color:#2C3E50;color:white;padding:2px;">
 
-					<h4>Discount Details</h4>
+       			 <div class="row" s>
+          			<div class="col-50">
+						<form method="post" action="/calDiscount">
+							<div style="background-color:#2C3E50;color:white;padding:2px;">
 
-				</div>
+								<h4 style="text-align:center">Discount Details</h4>
+
+							</div>
 				<br>
                 <div style="padding:10px">
-				<b><label for="fname"> OFFER MONTH RANGE :</label></b>
+					<b><label for="fname"> OFFER MONTH RANGE :</label></b>
+						<!--dropdwon Details Col start here------>
 
-				<!--select the month range from multiple drop down-->
-				<select class="selectpicker" multiple data-live-search="true" style = "width:70%;">
-					<option value="January">January</option>
-					<option value="Febuary">Febuary</option>
-					<option value="March">March</option>
-					<option value="April">April</option>
-					<option value="May">May</option>
-					<option value="June">June</option>
-					<option value="July">July</option>
-					<option value="August">August</option>
-					<option value="September">September</option>
-					<option value="October">October</option>
-					<option value="November">November</option>
-					<option value="December">December</option>
-				</select>
+<!--Monthly drop down -->
+<div class="dropdown">
+  <input type="text" id="monthsave" value ='Month..' class="dropbtn" name="monthsave"><i class='fas fa-caret-down dropbtn iconset'></i>
+
+  <div class="dropdown-content">
+
+  <div class="subitems">
+	<span  onclick = "addMonth('January')">January</span><span onclick="removeMonth('January')" class ='subitemsremove ' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+  </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('Febuary')">Febuary</span><span onclick="removeMonth('Febuary')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('April')">April</span><span onclick="removeMonth('April')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('May')">May</span><span onclick="removeMonth('May')" class ='subitemsremove ' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+  </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('June')">June</span><span onclick="removeMonth('June')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('July')">July</span><span onclick="removeMonth('July')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+  <div class="subitems">
+	<span  onclick = "addMonth('August')">August</span><span onclick="removeMonth('August')" class ='subitemsremove ' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+  </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('September')">September</span><span onclick="removeMonth('September')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('October')">October</span><span onclick="removeMonth('October')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('November')">November</span><span onclick="removeMonth('November')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+ <div class="subitems">
+	<span  onclick = "addMonth('December')">December</span><span onclick="removeMonth('December')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
 
 
-				<br>
-				<b><label for="fname"> YEAR RANGE TO PREDICT FUTURE REVENUE :</label></b>
 
-				<!--select the month range from multiple drop down-->
-				<select class="selectpicker" multiple data-live-search="true" style = "width:50%;">
-					<option value="January">2015</option>
-					<option value="Febuary">2016</option>
-					<option value="March">2017</option>
+  </div>
+</div>
+<!-- Year Drop down-->
 
-				</select>
+<div class="dropdown">
+  <input type="text" id="year" value ='Year..' class="dropbtn" name="year" ><i class='fas fa-caret-down dropbtn iconset'></i>
+
+  <div class="dropdown-content">
+
+  <div class="subitems">
+	<span  onclick = "addyear('2015')">2015</span><span onclick="removeYear('2015')" class ='subitemsremove ' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+  </div>
+
+ <div class="subitems">
+	<span  onclick = "addyear('2016')">2016</span><span onclick="removeYear('2016')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+ <div class="subitems">
+	<span  onclick = "addyear('2017')">2017</span><span onclick="removeYear('2017')" class ='subitemsremove' ><i class="fa fa-trash" aria-hidden="true"></i></span><br>
+ </div>
+
+
+  </div>
+</div>
+					<!--dropdwon ends Details Col start here------>
+
+
+
 
 				<b><label for="email">DISCOUNT PERCENTAGE</label></b>
-				<input type="number" name="test_name" min="0" oninput="validity.valid||(value='');" >
-                </div>
+				<input type="number" name="test_name" name="test_name" min="0" oninput="validity.valid||(value='');" >
+				<br>
+				<br>
 				<button type="submit" class="btn btn-primary btn-sm" style="color:white;">Generate Discount</button>
-			</form>
+				</div>
+							<br>
+
+						</form>
 
           </div>
 
@@ -247,10 +335,21 @@
 
 
 
-<div class="row">
 
 
-
-</div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 {% endblock %}

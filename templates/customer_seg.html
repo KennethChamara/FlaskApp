@@ -7,7 +7,7 @@
 
 {% block body %}
 <div class="bg-white" style="padding:10px;">
-    <h1 style="text-align:center;">Descriptive Analysis </h1>
+    <h1 style="text-align:center;">Customer Segmentation Analysis </h1>
     <hr>
     <div style="padding-left:20px;overflow-y: auto; height:700px;">
  <div class="row">
@@ -97,13 +97,16 @@
         <br>
         <div class="row" style="text-align: center" >
             <div class="col-sm-11" style="background-color:#2C3E50; color:white; padding:2px; text-align: center;">
-                    <h4> LANGUAGE SKILLS :   {% block skills %}{% endblock %}</h4>
+                    <h5> LANGUAGE SKILLS : </h5>
+                    <div class="row" align="center">
+                          {% block skills %}{% endblock %}
+                    </div>
             </div>
         </div>
         <br>
         <div class="row" style="text-align: center" >
             <div class="col-sm-11" style="background-color:#2C3E50; color:white; padding:2px; text-align: center;">
-                    <h3> Cancelled Days </h3>
+                    <h3> Accepted Days </h3>
                     {% block cancel %}{% endblock %}
             </div>
         </div>
@@ -197,13 +200,16 @@
         <br>
         <div class="row" style="text-align: center" >
             <div class="col-sm-11" style="background-color:#2C3E50; color:white; padding:2px; text-align: center;">
-                    <h4> LANGUAGE SKILLS :   {% block skills2 %}{% endblock %}</h4>
+                    <h5> LANGUAGE SKILLS : </h5>
+                    <div class="row" align="center">
+                          {% block skills2 %}{% endblock %}
+                    </div>
             </div>
         </div>
         <br>
         <div class="row" style="text-align: center" >
             <div class="col-sm-11" style="background-color:#2C3E50; color:white; padding:2px; text-align: center;">
-                    <h3> Cancelled Days </h3>
+                    <h3> Accepted Days</h3>
                     {% block cancel2 %}{% endblock %}
             </div>
         </div>
@@ -296,14 +302,18 @@
 
         <br>
         <div class="row" style="text-align: center" >
-            <div class="col-sm-11" style="background-color:#2C3E50; color:white; padding:2px; text-align: center;">
-                    <h4> LANGUAGE SKILLS :   {% block skills3 %}{% endblock %}</h4>
+            <div class="card col-sm-11" style="background-color:#2C3E50; color:white; padding:2px; text-align: center;">
+                    <h5> LANGUAGE SKILLS :  </h5>
+                    <div class="row" align="center">
+                        {% block skills3 %}{% endblock %}
+                    </div>
+
             </div>
         </div>
         <br>
         <div class="row" style="text-align: center" >
             <div class="col-sm-11" style="background-color:#2C3E50; color:white; padding:2px; text-align: center;">
-                    <h3> Cancelled Days </h3>
+                    <h3> Accepted Days </h3>
                     {% block cancel3 %}{% endblock %}
             </div>
         </div>

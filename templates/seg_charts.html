@@ -64,7 +64,7 @@ var ctx = document.getElementById('myChart4').getContext('2d');
 
 var myChart = new Chart(ctx, {
 
-    type: 'pie',
+    type: 'doughnut',
     data: {
         labels: [{% for i in clabels %}
                     '{{ i }}',
@@ -359,9 +359,10 @@ var myChart = new Chart(ctx, {
 
 
 {% block skills %}
+<div class="container">
     <table>
     <tr>
-        <th>Country</th>
+        <th>Country<</th>
         <th>Ability</th>
     </tr>
     {% for i in dic3.keys() %}
@@ -371,6 +372,7 @@ var myChart = new Chart(ctx, {
        </tr>
     {% endfor %}
     </table>
+    </div>
 {% endblock %}
 
 
@@ -449,7 +451,7 @@ var ctx = document.getElementById('myChart7').getContext('2d');
 
 var myChart = new Chart(ctx, {
 
-    type: 'pie',
+    type: 'doughnut',
     data: {
         labels: [{% for i in clabels2 %}
                     '{{ i }}',
@@ -744,6 +746,7 @@ var myChart = new Chart(ctx, {
 
 
 {% block skills2 %}
+  <div class="container">
     <table>
     <tr>
         <th>Country</th>
@@ -756,6 +759,7 @@ var myChart = new Chart(ctx, {
        </tr>
     {% endfor %}
     </table>
+  </div>
 {% endblock %}
 
 
@@ -835,7 +839,7 @@ var ctx = document.getElementById('myChart13').getContext('2d');
 
 var myChart = new Chart(ctx, {
 
-    type: 'pie',
+    type: 'doughnut',
     data: {
         labels: [{% for i in clabels3 %}
                     '{{ i }}',
@@ -1130,10 +1134,11 @@ var myChart = new Chart(ctx, {
 
 
 {% block skills3 %}
+<div class="container" >
     <table>
     <tr>
-        <th>Country</th>
-        <th>Ability</th>
+        <th>Country </th>
+        <th> Ability</th>
     </tr>
     {% for i in dic33.keys() %}
        <tr>
@@ -1142,6 +1147,7 @@ var myChart = new Chart(ctx, {
        </tr>
     {% endfor %}
     </table>
+</div>
 {% endblock %}
 
 

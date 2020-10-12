@@ -4,6 +4,42 @@
 <title>Home3</title>
 {% endblock %}
 
+
+{% block kpicardtarget %}
+
+    <div class="card text-dark bg-warning">
+        <div class="card-body">
+             Target for the Month: </br> ${{ target }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block kpicardcurrent %}
+
+    <div class="card text-white bg-success">
+        <div class="card-body">
+             Current Revenue: </br> ${{ currentTotal }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block kpicardtargetavg %}
+
+    <div class="card text-dark bg-warning">
+        <div class="card-body">
+             Target ADR: </br> ${{ targetAvg }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block kpicardcurrentavg %}
+
+    <div class="card text-white bg-success">
+        <div class="card-body">
+             Current ADR: </br> ${{ currentAvg }}
+        </div>
+    </div>
+{% endblock %}
 {% block currentdropdown %}
 <label for="cyear">Current Financial Season:</label>
 
@@ -31,9 +67,9 @@
 
 {% endblock %}
 
-{% block chart %}
 
-<canvas id="chart" width="800" height="550"></canvas>
+{% block chart %}
+<canvas id="chart" width="800" height="600"></canvas>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script type="text/javascript">
 var ctx = document.getElementById('chart').getContext('2d');
@@ -155,7 +191,7 @@ var myChart = new Chart(ctx, {
 {% endblock %}
 
 {% block totalChart %}
-<canvas id="chartTotal" width="800" height="550"></canvas>
+<canvas id="chartTotal" width="800" height="600"></canvas>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 <script type="text/javascript">
 var ctx = document.getElementById('chartTotal').getContext('2d');
@@ -279,7 +315,5 @@ var myChart = new Chart(ctx, {
     }
 });
 
-
 </script>
-
 {% endblock %}
