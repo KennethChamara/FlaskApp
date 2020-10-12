@@ -3,46 +3,65 @@ import pandas as pd
 # data_frame = pd.read_csv( 'cluster_hotel.csv' )
 yearlist = []
 
+yearlist = [int(2015), int(2016), int(2017)]
+
 def toCSV(csv_file):
     data_frame = pd.read_csv(csv_file)
     return data_frame
 
-def monthly_transaction_avg(data_frame):
-    # data_frame = pd.read_csv(source_file)
-    print( 'Loading...................' )
+# def monthly_transaction_avg():
+#     # data_frame = pd.read_csv(source_file)
+#     print( 'Loading...................' )
+#
+#     averageList = []
+#     sumList = []
+#     data_frame_new = data_frame[[
+#         'arrival_date_year', 'arrival_date_month', 'adr']]
+#
+#
+#     # for index, row in data_frame_new.iterrows():
+#     #     year = row['arrival_date_year']
+#     #     if year not in yearlist:
+#     #         yearlist.append( year )
+#
+#     dfList = []
+#     # df = "df"
+#     i = 1
+#     for year in yearlist:
+#         rows = []
+#         for index, row in data_frame_new.iterrows():
+#             y = row['arrival_date_year']
+#             m = row['arrival_date_month']
+#             adr = row['adr']
+#             if y == int(year):
+#                 rows.append( [int(y), m, adr] )
+#         df = pd.DataFrame( rows, columns=['year', 'month', 'adr'] )
+#         df.to_csv('year{}.csv'.format(i), index=False)
+#         i = i + 1
+#     print('Successfully Created')
+#
+# monthly_transaction_avg()
 
+
+def readCsv(file):
+    return pd.read_csv(file)
+
+def monthly_transaction_avg():
     averageList = []
     sumList = []
-    data_frame_new = data_frame[[
-        'arrival_date_year', 'arrival_date_month', 'adr']]
-
-
-    for index, row in data_frame_new.iterrows():
-        year = row['arrival_date_year']
-        if year not in yearlist:
-            yearlist.append( year )
-
     dfList = []
-    # df = "df"
-    for year in yearlist:
-        rows = []
-        for index, row in data_frame_new.iterrows():
-            y = row['arrival_date_year']
-            m = row['arrival_date_month']
-            adr = row['adr']
-            if y == year:
-                rows.append( [y, m, adr] )
-        df = "df" + str( year )
-        df = pd.DataFrame( rows, columns=['year', 'month', 'adr'] )
-
-        dfList.append( df )
+    dfList.append( readCsv( 'year1.csv' ) )
+    dfList.append( readCsv( 'year2.csv' ) )
+    dfList.append( readCsv( 'year3.csv' ) )
     for dataframes in dfList:
         averageList.append( dataframes.groupby( ['year', 'month'], sort=False ).mean() )
         sumList.append( dataframes.groupby( ['year', 'month'], sort=False ).sum() )
-    return averageList, sumList, yearlist
+    print( 'Loading...................' )
+    return averageList, sumList
 
 
-output2 = monthly_transaction_avg(toCSV('correct_cluster.csv'))
+
+output2 = monthly_transaction_avg()
 
 def dictionryOutput():
     adrDic = {}

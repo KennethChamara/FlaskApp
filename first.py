@@ -250,7 +250,7 @@ cdates3 = output3[3]['canceldetails'][0]
 #######################################FUNCTION IMPLEMENTATION
 
 #yuvins code
-''''
+
 labels = []
 
 count = 0
@@ -266,14 +266,14 @@ for keys, values in de.dictionryOutput()[0].items():
     if count > 0:
         break
 
-'''
+
 
 colors = [
     "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
     "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
     "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
 
-'''
+
 season1 = list( de.financialYearPattern()[0]["season1"].values() )
 season2 = list( de.financialYearPattern()[0]["season2"].values() )
 season3 = list( de.financialYearPattern()[0]["season3"].values() )
@@ -288,7 +288,7 @@ target = int(season2Total[1])
 avgValues = list(de.annualDailyRateAvg().values())
 avgTotal = list(de.annualTotalRevAvg().values())
 yearlist = de.yearList()
-'''
+
 #yuvin code end
 @app.route('/')
 @app.route('/Workspace')
@@ -345,7 +345,7 @@ def predict():
     else:
         return render_template('good.html', out=details, child=children, adu=adults)
 
-'''
+
 @app.route('/Dashbord', methods=['POST', 'GET'])
 def showLineChart():
     line_labels = labels
@@ -390,7 +390,7 @@ def showLineChart():
                                values2 = season1_line, values3 = season2_line, values4 = season3_line,
                                avgValues = line_avg, avgTotal = line_avg_total, yearlist = var_yearlist,
                                season1Total = season1_total, season2Total = season2_total, season3Total = season3_total, currentTotal = current_total, target = target_total, targetAvg = target_avg, currentAvg = current_avg )
-'''
+
 @app.route('/Discount')
 def getDiscount():
     flg=False
