@@ -277,10 +277,13 @@ colors = [
 season1 = list( de.financialYearPattern()[0]["season1"].values() )
 season2 = list( de.financialYearPattern()[0]["season2"].values() )
 season3 = list( de.financialYearPattern()[0]["season3"].values() )
-
+targetAvg = int(season2[1])
+currentAvg = int(season3[1])
 season1Total = list( de.financialYearPattern()[1]["season1"].values())
 season2Total = list( de.financialYearPattern()[1]["season2"].values())
 season3Total = list( de.financialYearPattern()[1]["season3"].values())
+currentTotal = int(season3Total[1])
+target = int(season2Total[1])
 
 avgValues = list(de.annualDailyRateAvg().values())
 avgTotal = list(de.annualTotalRevAvg().values())
@@ -352,6 +355,10 @@ def showLineChart():
     season1_total = season1Total
     season2_total = season2Total
     season3_total = season3Total
+    current_total = currentTotal
+    target_total = target
+    target_avg = targetAvg
+    current_avg = currentAvg
     var_yearlist = ['F-Year 1', 'F-Year 2', 'F-Year 3']
 
     if request.method == 'POST':
@@ -381,11 +388,24 @@ def showLineChart():
         return render_template('charts.html', title='Bitcoin Monthly Price in USD', max=200, labels=line_labels,
                                values2 = season1_line, values3 = season2_line, values4 = season3_line,
                                avgValues = line_avg, avgTotal = line_avg_total, yearlist = var_yearlist,
-                               season1Total = season1_total, season2Total = season2_total, season3Total = season3_total )
+                               season1Total = season1_total, season2Total = season2_total, season3Total = season3_total, currentTotal = current_total, target = target_total, targetAvg = target_avg, currentAvg = current_avg )
 
 @app.route('/Discount')
 def getDiscount():
-    return render_template('Discount_meter.html')
+    flg=False
+    return render_template('Discount_meter.html',fl=flg,out=[])
+
+@app.route('/calDiscount',methods=['POST','GET'])
+def getCalDiscount():
+    flg=True
+    months=request.form.get('monthsave').split(',')
+    years=request.form.get('year').split(',')
+    for i in range(len(years)):
+        years[i]=int(years[i])
+    test_name=int(request.form.get('test_name'))
+    output = cl.FinancialOfferCalculations(years, months, test_name)
+    su=sum(output['segment_loss_from_discount'].values())
+    return render_template('Discount_meter.html', out=output, sum=su, fl=flg)
 
 
 @app.route('/Customer_Segmentation')
@@ -481,5 +501,5 @@ def getLatestTime(year, month, day):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
 
